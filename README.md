@@ -32,14 +32,3 @@ run with a CI pipeline.
     docker-compose run -u root --rm backend bash -c "coverage run -m pytest && coverage report -m"
     docker-compose run -u root --rm backend bash -c "flake8"
 
-## Assumptions and Things to note
-
-This is by no means a perfect implementation. The number of models are being kept as lean 
-as possible to achieve the required minimum outcomes. In a normal scenario there would be a 
-lot more supporting information captured along with the current information.
-
-No attempt is being made to secure the endpoints, it is assumed these are private 
-behind some sort of authentication as would normally be the case.
-
-Not all field and form validation are being considered for lack of exact specs like for example 
-the integer range which could be provided to XP rewards.
