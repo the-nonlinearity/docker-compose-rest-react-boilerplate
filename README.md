@@ -23,6 +23,8 @@ The app is managed using `docker-compose` and therefor you can start the applica
 
     docker-compose run -u root --rm backend bash -c "python manage.py createsuperuser"
 
+    docker-compose run -u root --rm backend bash -c "python manage.py show_urls"
+
 
 ## Testing
 
@@ -31,4 +33,12 @@ run with a CI pipeline.
 
     docker-compose run -u root --rm backend bash -c "coverage run -m pytest && coverage report -m"
     docker-compose run -u root --rm backend bash -c "flake8"
+
+# Backend 
+
+You can test the urls with curl
+
+    curl -X POST -H "Content-Type: application/json" \ 
+    -d '{"email": "davidattenborough", "password": "boatymcboatface"}' \
+    http://0.0.0.0:8000/api/token/
 

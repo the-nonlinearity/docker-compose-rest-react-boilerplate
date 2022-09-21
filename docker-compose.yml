@@ -4,7 +4,7 @@ services:
 
   backend:
     build: ./backend
-    container_name: junior-app-backend
+    container_name: boilerplate-backend
     stdin_open: true
     tty: true
     command: bash -c 'while !</dev/tcp/postgres/5432; do sleep 1; done; python manage.py runserver 0.0.0.0:8000'
@@ -18,7 +18,7 @@ services:
 
   frontend:
     build: ./frontend
-    container_name: junior-app-frontend
+    container_name: boilerplate-frontend
     stdin_open: true
     tty: true
     volumes:
