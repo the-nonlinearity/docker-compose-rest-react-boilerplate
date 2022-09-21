@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+
+  backend:
+    build: ./backend
+    container_name: junior-app-backend
+    stdin_open: true
+    tty: true
+    command: bash -c 'while !</dev/tcp/postgres/5432; do sleep 1; done; python manage.py runserver 0.0.0.0:8000'
+    volumes:
+      - ./backend/:/app/src/ # maps host directory to internal container directory
+    networks:
+      - nginx_network
+      - postgres_network
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./frontend
+    container_name: junior-app-frontend
+    stdin_open: true
+    tty: true
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    depends_on:
+      - backend
+    networks:
+      - nginx_network
+
+  nginx:
+    image: nginx:1.13
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - 8000:80
+      - 3000:8080
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - nginx_network
+
+  postgres:
+    image: postgres:12
+    env_file:
+      - env.db
+    networks:
+      - postgres_network
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+
+networks:
+  nginx_network:
+    driver: bridge
+  postgres_network:
+    driver: bridge
+
+volumes:
+  postgres_volume:
+  frontend_volume:
