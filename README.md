@@ -34,11 +34,5 @@ run with a CI pipeline.
     docker-compose run -u root --rm backend bash -c "coverage run -m pytest && coverage report -m"
     docker-compose run -u root --rm backend bash -c "flake8"
 
-# Backend 
 
-You can test the urls with curl
-
-    curl -X POST -H "Content-Type: application/json" \ 
-    -d '{"email": "davidattenborough", "password": "boatymcboatface"}' \
-    http://0.0.0.0:8000/api/token/
 

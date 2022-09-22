@@ -136,3 +136,4 @@ node_modules
 
 # Local settings
 backend/backend/settings_local.py
+backend/pytest_local.ini
