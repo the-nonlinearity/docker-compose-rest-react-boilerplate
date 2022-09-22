@@ -10,8 +10,8 @@ The backend is connected to the postgres database created in the `docker-compose
 
 Start by creating a clean python environment. I use pyenv:
 
-    pyenv virtualenv 3.10.6 assignment-env-3.10.6
-    pyenv activate assignment-env-3.10.6
+    pyenv virtualenv 3.10.6 env-3.10.6
+    pyenv activate env-3.10.6
 
 We need docker-compose installed so install the requirements from the base directory:
 
