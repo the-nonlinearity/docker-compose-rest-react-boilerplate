@@ -9,12 +9,8 @@
   - [Installing dependencies](#installing-dependencies)
 - [Project setup](#project-setup)
   - [Compiles and hot-reloads for development](#compiles-and-hot-reloads-for-development)
-  - [Compiles and minifies for production](#compiles-and-minifies-for-production)
   - [Lints and fixes files](#lints-and-fixes-files)
   - [Run your unit tests](#run-your-unit-tests)
-- [Test users](#test-users)
-  - [Administrator](#administrator)
-  - [Client](#client)
 - [Route types](#route-types)
   - [Public route](#public-route)
   - [Hybrid route](#hybrid-route)
@@ -72,7 +68,7 @@ yarn lint:fix
 npm run lint:fix
 ```
 
-### Run your unit tests locally
+### Run your unit tests
 
 ```bash
 # run tests
