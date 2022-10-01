@@ -21,6 +21,7 @@ export function Login () {
       ...values,
       [name]: value
     })
+    console.log(values, '<<<<<<<<')
   }
 
   async function handleSubmit (e: FormEvent) {
@@ -40,11 +41,7 @@ export function Login () {
 
   return (
     <div>
-      <form
-        noValidate
-        data-testid="login-form"
-        onSubmit={handleSubmit}
-      >
+      <form noValidate data-testid="login-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email</label>
           <input
