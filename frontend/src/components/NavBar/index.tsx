@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { FaSignInAlt, FaUser, FaHome } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
 import { AuthContext } from '../../context/AuthContext'
@@ -9,9 +10,9 @@ export function NavBar () {
 
   return (
     <div>
-      <Link to="/login">Login</Link>
-      <Link to="/register">Register</Link>
-      <Link to="/">Home</Link>
+      <Link to="/login"> <FaSignInAlt /> Login </Link>
+      <Link to="/register"><FaUser /> Register </Link>
+      <Link to="/"><FaHome /> Home</Link>
 
       <CanAccess permissions={['users.list']}>
         <Link to="/users">Users</Link>

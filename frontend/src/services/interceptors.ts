@@ -39,6 +39,10 @@ function handleRefreshToken (refreshToken: string) {
     })
 }
 
+export const postNewUser = (email: string, password: string) => {
+  return api.post('/register/', { email: email, password: password })
+}
+
 function onRequest (config: AxiosRequestConfig): AxiosRequestConfig {
   const token = getToken()
   token && setAuthorizationHeader(config, token)

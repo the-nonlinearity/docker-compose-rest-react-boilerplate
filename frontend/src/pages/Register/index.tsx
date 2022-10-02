@@ -1,5 +1,7 @@
 import React, { useState, FormEvent } from 'react'
 
+import { postNewUser } from '../../services/interceptors'
+
 export function Register () {
   const [emailInput, setEmailInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
@@ -16,8 +18,12 @@ export function Register () {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setPendingSubmit(true)
-    console.log(emailInput, passwordInput, '<<<<<<<<')
-    setPendingSubmit(false)
+    postNewUser(emailInput, passwordInput).then(() => {
+      setPendingSubmit(false)
+      console.log('created!!!!!!!!')
+    })
+    setEmailInput('')
+    setPasswordInput('')
   }
 
   if (pendingSubmit) { return <p>Pending...</p> }
