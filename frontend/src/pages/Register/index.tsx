@@ -3,27 +3,35 @@ import React, { useState, FormEvent } from 'react'
 import { postNewUser } from '../../services/interceptors'
 
 export function Register () {
-  const [emailInput, setEmailInput] = useState('')
-  const [passwordInput, setPasswordInput] = useState('')
+  const [formInput, setFormInput] = useState({
+    email: '',
+    password: '',
+    passwordConfirm: ''
+  })
   const [pendingSubmit, setPendingSubmit] = useState(false)
 
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmailInput(event.target.value)
-  }
+  const { email, password, passwordConfirm } = formInput
 
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPasswordInput(event.target.value)
+  const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    setFormInput({
+      ...formInput,
+      [name]: value
+    })
   }
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setPendingSubmit(true)
-    postNewUser(emailInput, passwordInput).then(() => {
+    postNewUser(email, password).then(() => {
       setPendingSubmit(false)
       console.log('created!!!!!!!!')
     })
-    setEmailInput('')
-    setPasswordInput('')
+    setFormInput({
+      email: '',
+      password: '',
+      passwordConfirm: ''
+    })
   }
 
   if (pendingSubmit) { return <p>Pending...</p> }
@@ -35,27 +43,40 @@ export function Register () {
         <div>
       <label htmlFor="email">Email</label>
           <input
-            value={emailInput}
+            value={email}
             type="email"
             name="email"
             id="email"
-            onChange={handleEmailChange}
+            onChange={handleFormChange}
+            placeholder='Enter email'
         />
         </div>
         <div>
           <label htmlFor="password">Password</label>
           <input
-            value={passwordInput}
+            value={password}
             type="password"
             name="password"
             id="password"
-            onChange={handlePasswordChange}
+            onChange={handleFormChange}
+            placeholder='Enter password'
+          />
+        </div>
+        <div>
+          <label htmlFor="passwordConfirm">Confirm Password</label>
+          <input
+            value={passwordConfirm}
+            type="password"
+            name="passwordConfirm"
+            id="passwordConfirm"
+            onChange={handleFormChange}
+            placeholder='Confirm password'
           />
         </div>
 
         <button
           type="submit"
-          // disabled={loginRequestStatus === 'loading'}
+          disabled={password !== passwordConfirm || !password}
         >
         </button>
       </form>
