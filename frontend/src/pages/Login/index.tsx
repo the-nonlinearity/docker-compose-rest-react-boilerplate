@@ -21,7 +21,6 @@ export function Login () {
       ...values,
       [name]: value
     })
-    console.log(values, '<<<<<<<<')
   }
 
   async function handleSubmit (e: FormEvent) {
