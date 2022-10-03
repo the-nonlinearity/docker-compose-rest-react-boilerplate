@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from 'react'
+// import { toast } from 'react-toastify'
 
 import { postNewUser } from '../../services/interceptors'
 
@@ -6,11 +7,13 @@ export function Register () {
   const [formInput, setFormInput] = useState({
     email: '',
     password: '',
-    passwordConfirm: ''
+    passwordConfirm: '',
+    firstName: '',
+    lastName: ''
   })
   const [pendingSubmit, setPendingSubmit] = useState(false)
 
-  const { email, password, passwordConfirm } = formInput
+  const { email, password, passwordConfirm, firstName, lastName } = formInput
 
   const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -23,23 +26,49 @@ export function Register () {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     setPendingSubmit(true)
-    postNewUser(email, password).then(() => {
+    postNewUser(email, password, firstName, lastName).then((res) => {
       setPendingSubmit(false)
       console.log('created!!!!!!!!')
     })
     setFormInput({
       email: '',
       password: '',
-      passwordConfirm: ''
+      passwordConfirm: '',
+      firstName: '',
+      lastName: ''
     })
   }
 
   if (pendingSubmit) { return <p>Pending...</p> }
 
+  // if (password !== passwordConfirm) { toast.error('Passwords do not match') }
+
   return (
     <div>
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
+      <div>
+      <label htmlFor="firstName">Name</label>
+          <input
+            value={firstName}
+            type="text"
+            name="firstName"
+            id="firstName"
+            onChange={handleFormChange}
+            placeholder='Enter first name'
+        />
+        </div>
+        <div>
+      <label htmlFor="lastName">Surname</label>
+          <input
+            value={lastName}
+            type="text"
+            name="lastName"
+            id="lastName"
+            onChange={handleFormChange}
+            placeholder='Enter surname'
+        />
+        </div>
         <div>
       <label htmlFor="email">Email</label>
           <input
