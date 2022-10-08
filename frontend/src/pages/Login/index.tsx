@@ -28,7 +28,7 @@ export function Login () {
 
     setLoginRequestStatus('loading')
 
-    signIn(values).then((res) => console.log(values, '<<<<<<input', res, '<<<<<<<<<res', user, '<<<<<<user'))
+    signIn(values).then((res) => console.log(res, '<<<<<<<<<res', user, '<<<<<<user'))
 
     setLoginRequestStatus('success')
   }

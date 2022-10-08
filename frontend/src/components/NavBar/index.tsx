@@ -10,11 +10,8 @@ export function NavBar () {
 
   return (
     <div>
-      {/* <Link to="/login"> Login </Link>
-      <Link to="/register"> Register </Link>
-      <Link to="/"> Home</Link> */}
       <Link to="/login"> <FaSignInAlt /> Login </Link>
-      <Link to="/register"><FaUser /> Register </Link>
+      { !isAuthenticated ? <Link to="/register"><FaUser /> Register </Link> : <Link to="/account"><FaUser /> Account </Link> }
       <Link to="/"><FaHome /> Home</Link>
 
       <CanAccess permissions={['users.list']}>
