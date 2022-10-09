@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from 'react'
+import { Button, Spinner } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 
 import { postNewUser } from '../../services/interceptors'
@@ -40,8 +41,6 @@ export function Register () {
       })
     }
   }
-
-  if (pendingSubmit) { return <p>Pending...</p> }
 
   return (
     <div>
@@ -102,11 +101,24 @@ export function Register () {
             placeholder='Confirm password'
           />
         </div>
-
-        <button
+        {!pendingSubmit
+          ? <Button
           type="submit"
-        >
-        </button>
+          variant="dark"
+          disabled={pendingSubmit}
+        > Create Account
+        </Button>
+          : <Button variant="dark" disabled>
+          <Spinner
+            as="span"
+            animation="border"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+          />
+          <span className="visually-hidden">Loading...</span>
+        </Button>
+        }
       </form>
     </div>
   )
