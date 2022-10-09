@@ -43,8 +43,6 @@ export function Register () {
 
   if (pendingSubmit) { return <p>Pending...</p> }
 
-  // if (password !== passwordConfirm) { toast.error('Passwords do not match') }
-
   return (
     <div>
       <h1>Register</h1>
@@ -107,7 +105,6 @@ export function Register () {
 
         <button
           type="submit"
-          // disabled={password !== passwordConfirm || !password}
         >
         </button>
       </form>
