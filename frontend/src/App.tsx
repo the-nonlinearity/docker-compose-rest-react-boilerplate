@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
-// import { ToastContainer } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 
-// import 'react-toastify/dist/react-toastify.css'
+import 'react-toastify/dist/ReactToastify.css'
 import { NavBar } from './components/NavBar'
 import { AuthProvider } from './context/AuthContext'
 import { RouteList } from './routes'
@@ -21,7 +21,7 @@ const App = () => (
       <RouteList />
     </AuthProvider>
   </BrowserRouter>
-  {/* <ToastContainer/> */}
+  <ToastContainer/>
   </>
 )
 

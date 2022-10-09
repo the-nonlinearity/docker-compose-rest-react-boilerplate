@@ -1,5 +1,5 @@
 import React, { useState, FormEvent } from 'react'
-// import { toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 import { postNewUser } from '../../services/interceptors'
 
@@ -25,18 +25,20 @@ export function Register () {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
-    setPendingSubmit(true)
-    postNewUser(email, password, firstName, lastName).then((res) => {
-      setPendingSubmit(false)
-      console.log('created!!!!!!!!')
-    })
-    setFormInput({
-      email: '',
-      password: '',
-      passwordConfirm: '',
-      firstName: '',
-      lastName: ''
-    })
+    if (password !== passwordConfirm) { toast.error('Passwords do not match') } else {
+      setPendingSubmit(true)
+      postNewUser(email, password, firstName, lastName).then((res) => {
+        setPendingSubmit(false)
+        console.log('created!!!!!!!!')
+      })
+      setFormInput({
+        email: '',
+        password: '',
+        passwordConfirm: '',
+        firstName: '',
+        lastName: ''
+      })
+    }
   }
 
   if (pendingSubmit) { return <p>Pending...</p> }
@@ -105,7 +107,7 @@ export function Register () {
 
         <button
           type="submit"
-          disabled={password !== passwordConfirm || !password}
+          // disabled={password !== passwordConfirm || !password}
         >
         </button>
       </form>
