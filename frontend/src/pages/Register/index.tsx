@@ -29,7 +29,7 @@ export function Register () {
       setPendingSubmit(true)
       postNewUser(email, password, firstName, lastName).then((res) => {
         setPendingSubmit(false)
-        console.log('created!!!!!!!!')
+        toast('Account Created! Please sign in to continue')
       })
       setFormInput({
         email: '',
