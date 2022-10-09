@@ -1,5 +1,5 @@
 import React, { useState, FormEvent } from 'react'
-import { Button, Spinner } from 'react-bootstrap'
+import { Button, Spinner, Form } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 
 import { postNewUser } from '../../services/interceptors'
@@ -45,19 +45,22 @@ export function Register () {
   return (
     <div>
       <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-      <div>
-      <label htmlFor="firstName">Name</label>
-          <input
+      <Form onSubmit={handleSubmit}>
+        {/* <div> */}
+        <Form.Group className='mb-3' controlId='formFirstName'>
+          <Form.Label>Name:</Form.Label>
+          <Form.Control type="text" placeholder="Enter first name" onChange={handleFormChange} value={firstName} />
+          {/* <input
             value={firstName}
             type="text"
             name="firstName"
             id="firstName"
             onChange={handleFormChange}
             placeholder='Enter first name'
-        />
-        </div>
-        <div>
+        /> */}
+        </Form.Group>
+        {/* </div> */}
+        {/* <div>
       <label htmlFor="lastName">Surname</label>
           <input
             value={lastName}
@@ -67,8 +70,12 @@ export function Register () {
             onChange={handleFormChange}
             placeholder='Enter surname'
         />
-        </div>
-        <div>
+        </div> */}
+        <Form.Group className='mb-3' controlId='formLastName'>
+          <Form.Label>Surname:</Form.Label>
+          <Form.Control type="text" placeholder="Enter surname" onChange={handleFormChange} value={lastName} />
+          </Form.Group>
+        {/* <div>
       <label htmlFor="email">Email</label>
           <input
             value={email}
@@ -78,8 +85,13 @@ export function Register () {
             onChange={handleFormChange}
             placeholder='Enter email'
         />
-        </div>
-        <div>
+        </div> */}
+        <Form.Group className='mb-3' controlId='formEmail'>
+          <Form.Label>Email:</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" onChange={handleFormChange} value={email} />
+          <Form.Text className='text-muted'> Your email will never shared with anyone else</Form.Text>
+          </Form.Group>
+        {/* <div>
           <label htmlFor="password">Password</label>
           <input
             value={password}
@@ -89,8 +101,12 @@ export function Register () {
             onChange={handleFormChange}
             placeholder='Enter password'
           />
-        </div>
-        <div>
+        </div> */}
+        <Form.Group className='mb-3' controlId='formPassword'>
+          <Form.Label>Password:</Form.Label>
+          <Form.Control type="password" placeholder="Enter password" onChange={handleFormChange} value={password} />
+          </Form.Group>
+        {/* <div>
           <label htmlFor="passwordConfirm">Confirm Password</label>
           <input
             value={passwordConfirm}
@@ -100,7 +116,11 @@ export function Register () {
             onChange={handleFormChange}
             placeholder='Confirm password'
           />
-        </div>
+        </div> */}
+        <Form.Group className='mb-3' controlId='formPasswordConfirm'>
+          <Form.Label>Confirm Password::</Form.Label>
+          <Form.Control type="password" placeholder="Confirm password" onChange={handleFormChange} value={passwordConfirm} />
+          </Form.Group>
         {!pendingSubmit
           ? <Button
           type="submit"
@@ -119,7 +139,7 @@ export function Register () {
           <span className="visually-hidden">Loading...</span>
         </Button>
         }
-      </form>
+      </Form>
     </div>
   )
 }
