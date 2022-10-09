@@ -1,5 +1,5 @@
 import React, { useState, FormEvent } from 'react'
-import { Button, Spinner, Form } from 'react-bootstrap'
+import { Button, Spinner, Form, Container } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 
 import { postNewUser } from '../../services/interceptors'
@@ -45,81 +45,41 @@ export function Register () {
   return (
     <div>
       <h1>Register</h1>
+      <Container className="bg-light border border-dark border-3">
+
       <Form onSubmit={handleSubmit}>
-        {/* <div> */}
         <Form.Group className='mb-3' controlId='formFirstName'>
           <Form.Label>Name:</Form.Label>
-          <Form.Control type="text" placeholder="Enter first name" onChange={handleFormChange} value={firstName} />
-          {/* <input
-            value={firstName}
-            type="text"
-            name="firstName"
-            id="firstName"
-            onChange={handleFormChange}
-            placeholder='Enter first name'
-        /> */}
+          <Form.Control type="text" placeholder="Enter first name" onChange={handleFormChange} name="firstName" value={firstName} required />
+          {/* <Form.Control.Feedback type='invalid'>
+            Please provide your first name.
+          </Form.Control.Feedback> */}
         </Form.Group>
-        {/* </div> */}
-        {/* <div>
-      <label htmlFor="lastName">Surname</label>
-          <input
-            value={lastName}
-            type="text"
-            name="lastName"
-            id="lastName"
-            onChange={handleFormChange}
-            placeholder='Enter surname'
-        />
-        </div> */}
         <Form.Group className='mb-3' controlId='formLastName'>
           <Form.Label>Surname:</Form.Label>
-          <Form.Control type="text" placeholder="Enter surname" onChange={handleFormChange} value={lastName} />
+          <Form.Control type="text" placeholder="Enter surname" onChange={handleFormChange} name="lastName" value={lastName} required />
+          {/* <Form.Control.Feedback type='invalid'>
+            Please provide your surname.
+          </Form.Control.Feedback> */}
           </Form.Group>
-        {/* <div>
-      <label htmlFor="email">Email</label>
-          <input
-            value={email}
-            type="email"
-            name="email"
-            id="email"
-            onChange={handleFormChange}
-            placeholder='Enter email'
-        />
-        </div> */}
         <Form.Group className='mb-3' controlId='formEmail'>
           <Form.Label>Email:</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" onChange={handleFormChange} value={email} />
-          <Form.Text className='text-muted'> Your email will never shared with anyone else</Form.Text>
+          <Form.Control type="email" placeholder="Enter email" onChange={handleFormChange} name="email" value={email} required/>
+          <Form.Text muted> Your email will never shared with anyone else</Form.Text>
+          {/* <Form.Control.Feedback type='invalid'>
+            Please provide a valid email.
+          </Form.Control.Feedback> */}
           </Form.Group>
-        {/* <div>
-          <label htmlFor="password">Password</label>
-          <input
-            value={password}
-            type="password"
-            name="password"
-            id="password"
-            onChange={handleFormChange}
-            placeholder='Enter password'
-          />
-        </div> */}
         <Form.Group className='mb-3' controlId='formPassword'>
           <Form.Label>Password:</Form.Label>
-          <Form.Control type="password" placeholder="Enter password" onChange={handleFormChange} value={password} />
+          <Form.Control type="password" placeholder="Enter password" onChange={handleFormChange} name="password" value={password} required />
+          {/* <Form.Control.Feedback type='invalid'>
+            Please provide a valid password.
+          </Form.Control.Feedback> */}
           </Form.Group>
-        {/* <div>
-          <label htmlFor="passwordConfirm">Confirm Password</label>
-          <input
-            value={passwordConfirm}
-            type="password"
-            name="passwordConfirm"
-            id="passwordConfirm"
-            onChange={handleFormChange}
-            placeholder='Confirm password'
-          />
-        </div> */}
         <Form.Group className='mb-3' controlId='formPasswordConfirm'>
-          <Form.Label>Confirm Password::</Form.Label>
-          <Form.Control type="password" placeholder="Confirm password" onChange={handleFormChange} value={passwordConfirm} />
+          <Form.Label>Confirm Password:</Form.Label>
+          <Form.Control type="password" placeholder="Confirm password" onChange={handleFormChange} name="passwordConfirm" value={passwordConfirm} required/>
           </Form.Group>
         {!pendingSubmit
           ? <Button
@@ -139,7 +99,9 @@ export function Register () {
           <span className="visually-hidden">Loading...</span>
         </Button>
         }
-      </Form>
+        </Form>
+
+      </Container>
     </div>
   )
 }
