@@ -1,35 +1,51 @@
 import { useContext } from 'react'
-import { FaSignInAlt, FaUser, FaHome } from 'react-icons/fa'
+import { Button, Container, Nav, Navbar } from 'react-bootstrap'
+import { FaSignInAlt, FaUser, FaHome, FaSignOutAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
 import { AuthContext } from '../../context/AuthContext'
 import { CanAccess } from '../CanAccess'
 
 export function NavBar () {
-  const { isAuthenticated, user, signOut } = useContext(AuthContext)
+  const { isAuthenticated, signOut } = useContext(AuthContext)
 
   return (
-    <div>
-      <Link to="/login"> <FaSignInAlt /> Login </Link>
-      { !isAuthenticated ? <Link to="/register"><FaUser /> Register </Link> : <Link to="/account"><FaUser /> Account </Link> }
-      <Link to="/"><FaHome /> Home</Link>
+    <>
+    <Navbar bg='dark' variant='dark'>
+      <Container className='justify-content-center'>
+        <Nav>
 
-      <CanAccess permissions={['users.list']}>
-        <Link to="/users">Users</Link>
-      </CanAccess>
+        <Nav.Link as={Link} to="/"><FaHome /> Home</Nav.Link>
 
-      <CanAccess permissions={['metrics.list']}>
-        <Link to="/metrics">Metrics</Link>
-      </CanAccess>
+            {!isAuthenticated ? <Nav.Link as={Link} to="/register"><FaUser /> Register </Nav.Link> : <Nav.Link as={Link} to="/account"><FaUser /> Account </Nav.Link>}
+            {!isAuthenticated
+              ? <Nav.Link as={Link} to="/login"> <FaSignInAlt /> Login </Nav.Link>
+              : <Nav.Link as={Button} variant="dark" bg="dark" data-testid="logout-button"
+                onClick={() => signOut()}> <FaSignOutAlt /> Logout </Nav.Link>
+         }
 
-      {isAuthenticated && (
+        <CanAccess permissions={['users.list']}>
+        <Nav.Link as={Link} to="/users">Users</Nav.Link>
+        </CanAccess>
+
+        <CanAccess permissions={['metrics.list']}>
+        <Nav.Link as={Link} to="/metrics">Metrics</Nav.Link>
+        </CanAccess>
+
+      {/* {isAuthenticated && (
         <>
           <span>{user?.email}</span>
-          <button data-testid="logout-button" onClick={() => signOut()}>
-            Logout
-          </button>
+          <Button
+          data-testid="logout-button"
+          onClick={() => signOut()}
+          variant="dark"
+        > Logout
+        </Button>
         </>
-      )}
-    </div>
+      )} */}
+          </Nav>
+        </Container>
+    </Navbar>
+    </>
   )
 }
