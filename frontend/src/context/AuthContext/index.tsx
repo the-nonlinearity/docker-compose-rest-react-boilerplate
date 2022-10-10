@@ -12,6 +12,12 @@ interface User {
   roles: string[]
 }
 
+interface AccountDetails {
+  email: string
+  firstName: string
+  lastName: string
+}
+
 interface SignInCredentials {
   email: string
   password: string
@@ -20,7 +26,9 @@ interface SignInCredentials {
 interface AuthContextData {
   signIn: (credentials: SignInCredentials) => Promise<void | AxiosError>
   signOut: () => void
+  getUserDetails: () => Promise<void | AxiosError>
   user: User
+  accountDetails: AccountDetails
   isAuthenticated: boolean
   loadingUserData: boolean
 }
@@ -33,12 +41,14 @@ export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider ({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>()
+  const [accountDetails, setAccountDetails] = useState<AccountDetails | null>()
   const [loadingUserData, setLoadingUserData] = useState(true)
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const token = getToken()
   const isAuthenticated = Boolean(token)
   const userData = user as User
+  const accountData = accountDetails as AccountDetails
 
   async function signIn ({ email, password }: SignInCredentials) {
     try {
@@ -47,6 +57,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
 
       createTokenCookies(access, refresh)
       setUser({ email, permissions, roles })
+      setAccountDetails({ email: email, firstName: response.data.first_name, lastName: response.data.last_name })
       setAuthorizationHeader(api.defaults, access)
     } catch (error) {
       const err = error as AxiosError
@@ -57,6 +68,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
   function signOut (pathname = '/login') {
     removeTokenCookies()
     setUser(null)
+    setAccountDetails(null)
     setLoadingUserData(false)
     navigate(pathname)
   }
@@ -77,6 +89,7 @@ export function AuthProvider ({ children }: AuthProviderProps) {
         if (response?.data) {
           const { email, permissions, roles } = response.data
           setUser({ email, permissions, roles })
+          setAccountDetails({ email: email, firstName: response.data.first_name, lastName: response.data.last_name })
         }
       } catch (error) {
         signOut()
@@ -91,13 +104,31 @@ export function AuthProvider ({ children }: AuthProviderProps) {
     }
   }, [])
 
+  async function getUserDetails () {
+    setLoadingUserData(true)
+
+    try {
+      const response = await api.get('/user/')
+
+      if (response?.data) {
+        setAccountDetails({ email: response.data.email, firstName: response.data.first_name, lastName: response.data.last_name })
+      }
+    } catch (error) {
+      signOut()
+    }
+
+    setLoadingUserData(false)
+  }
+
   return (
     <AuthContext.Provider value={{
       isAuthenticated,
       user: userData,
+      accountDetails: accountData,
       loadingUserData,
       signIn,
-      signOut
+      signOut,
+      getUserDetails
     }}>
       {children}
     </AuthContext.Provider>
