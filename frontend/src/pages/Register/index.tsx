@@ -44,7 +44,7 @@ export function Register () {
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1 className="text-center">Register</h1>
       <Container className="bg-light border border-dark border-3">
 
       <Form onSubmit={handleSubmit}>
@@ -81,6 +81,8 @@ export function Register () {
           <Form.Label>Confirm Password:</Form.Label>
           <Form.Control type="password" placeholder="Confirm password" onChange={handleFormChange} name="passwordConfirm" value={passwordConfirm} required/>
           </Form.Group>
+          <Container className="align-content-center text-center justify-content-center mb-2 pb-2">
+
         {!pendingSubmit
           ? <Button
           type="submit"
@@ -99,6 +101,7 @@ export function Register () {
           <span className="visually-hidden">Loading...</span>
         </Button>
         }
+          </Container>
         </Form>
 
       </Container>
