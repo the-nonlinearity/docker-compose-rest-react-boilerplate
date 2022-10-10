@@ -12,7 +12,7 @@ function initialFormValues () {
 export function Login () {
   const [values, setValues] = useState(initialFormValues)
   const [loginRequestStatus, setLoginRequestStatus] = useState('success')
-  const { signIn, user } = useContext(AuthContext)
+  const { signIn } = useContext(AuthContext)
 
   function handleChange (e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target
@@ -28,7 +28,7 @@ export function Login () {
 
     setLoginRequestStatus('loading')
 
-    signIn(values).then((res) => console.log(res, '<<<<<<<<<res', user, '<<<<<<user'))
+    signIn(values)
 
     setLoginRequestStatus('success')
   }
