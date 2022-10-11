@@ -47,40 +47,34 @@ export function Register () {
       <h1 className="text-center">Register</h1>
       <Container className="bg-light border border-dark border-3">
 
-      <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
+
         <Form.Group className='mb-3' controlId='formFirstName'>
           <Form.Label>Name:</Form.Label>
           <Form.Control type="text" placeholder="Enter first name" onChange={handleFormChange} name="firstName" value={firstName} required />
-          {/* <Form.Control.Feedback type='invalid'>
-            Please provide your first name.
-          </Form.Control.Feedback> */}
-        </Form.Group>
+          </Form.Group>
+
         <Form.Group className='mb-3' controlId='formLastName'>
           <Form.Label>Surname:</Form.Label>
           <Form.Control type="text" placeholder="Enter surname" onChange={handleFormChange} name="lastName" value={lastName} required />
-          {/* <Form.Control.Feedback type='invalid'>
-            Please provide your surname.
-          </Form.Control.Feedback> */}
           </Form.Group>
+
         <Form.Group className='mb-3' controlId='formEmail'>
           <Form.Label>Email:</Form.Label>
           <Form.Control type="email" placeholder="Enter email" onChange={handleFormChange} name="email" value={email} required/>
           <Form.Text muted> Your email will never shared with anyone else</Form.Text>
-          {/* <Form.Control.Feedback type='invalid'>
-            Please provide a valid email.
-          </Form.Control.Feedback> */}
           </Form.Group>
+
         <Form.Group className='mb-3' controlId='formPassword'>
           <Form.Label>Password:</Form.Label>
           <Form.Control type="password" placeholder="Enter password" onChange={handleFormChange} name="password" value={password} required />
-          {/* <Form.Control.Feedback type='invalid'>
-            Please provide a valid password.
-          </Form.Control.Feedback> */}
           </Form.Group>
+
         <Form.Group className='mb-3' controlId='formPasswordConfirm'>
           <Form.Label>Confirm Password:</Form.Label>
           <Form.Control type="password" placeholder="Confirm password" onChange={handleFormChange} name="passwordConfirm" value={passwordConfirm} required/>
           </Form.Group>
+
           <Container className="align-content-center text-center justify-content-center mb-2 pb-2">
 
         {!pendingSubmit
@@ -102,6 +96,7 @@ export function Register () {
         </Button>
         }
           </Container>
+
         </Form>
 
       </Container>
