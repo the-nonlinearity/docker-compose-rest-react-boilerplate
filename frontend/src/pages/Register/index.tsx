@@ -44,7 +44,7 @@ export function Register () {
 
   return (
     <div>
-      <h1 className="text-center">Register</h1>
+      <h2 className="text-center">Register</h2>
       <Container className="bg-light border border-dark border-3">
 
         <Form onSubmit={handleSubmit}>
