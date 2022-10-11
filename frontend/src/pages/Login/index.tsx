@@ -1,6 +1,7 @@
 import React, { FormEvent, useContext, useEffect, useState } from 'react'
 import { Button, Spinner, Form, Container } from 'react-bootstrap'
 import { toast } from 'react-toastify'
+// import { toast } from 'react-toastify'
 
 import { AuthContext } from '../../context/AuthContext'
 
@@ -30,7 +31,11 @@ export function Login () {
 
     setLoginRequestStatus('loading')
 
-    await signIn(values).catch(() => toast.error('Check your login credentials and try again'))
+    await signIn(values).then((res) => {
+      if (res) {
+        return toast.error('Please check your sign in credentials and try again')
+      }
+    })
 
     setLoginRequestStatus('success')
   }
