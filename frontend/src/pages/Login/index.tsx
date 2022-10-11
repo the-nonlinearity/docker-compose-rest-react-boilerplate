@@ -1,4 +1,6 @@
 import React, { FormEvent, useContext, useEffect, useState } from 'react'
+import { Button, Spinner, Form, Container } from 'react-bootstrap'
+import { toast } from 'react-toastify'
 
 import { AuthContext } from '../../context/AuthContext'
 
@@ -28,7 +30,11 @@ export function Login () {
 
     setLoginRequestStatus('loading')
 
-    await signIn(values)
+    await signIn(values).then((res) => {
+      if (res) {
+        return toast.error('Please check your sign in credentials and try again')
+      }
+    })
 
     setLoginRequestStatus('success')
   }
@@ -40,45 +46,46 @@ export function Login () {
 
   return (
     <div>
-      <form
-        noValidate
-        data-testid="login-form"
-        onSubmit={handleSubmit}
-      >
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            value={values.email}
-            type="email"
-            name="email"
-            id="email"
-            data-testid="login-input-email"
-            disabled={loginRequestStatus === 'loading'}
-            onChange={handleChange}
-          />
-        </div>
+      <h2 className='text-center'>Login</h2>
+    <Container className="bg-light border border-dark border-3">
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            value={values.password}
-            type="password"
-            name="password"
-            id="password"
-            data-testid="login-input-password"
-            disabled={loginRequestStatus === 'loading'}
-            onChange={handleChange}
-          />
-        </div>
+      <Form data-testid="login-form" onSubmit={handleSubmit}>
 
-        <button
+        <Form.Group className='mb-3' controlId='formEmailLogin'>
+          <Form.Label>Email:</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" onChange={handleChange} name="email" value={values.email} disabled={loginRequestStatus === 'loading'} required />
+        </Form.Group>
+
+        <Form.Group className='mb-3' controlId='formPasswordLogin'>
+          <Form.Label>Password:</Form.Label>
+          <Form.Control type="password" placeholder="Enter password" onChange={handleChange} name="password" value={values.password} disabled={loginRequestStatus === 'loading'} required />
+        </Form.Group>
+
+      <Container className="align-content-center text-center justify-content-center mb-2 pb-2">
+
+        {loginRequestStatus !== 'loading'
+          ? <Button
           type="submit"
-          data-testid="login-submit-button"
+          variant="dark"
           disabled={loginRequestStatus === 'loading'}
-        >
-          {loginRequestStatus === 'loading' ? 'Loading...' : 'Submit'}
-        </button>
-      </form>
+        > Login
+        </Button>
+          : <Button variant="dark" disabled>
+          <Spinner
+            as="span"
+            animation="border"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+          />
+          <span className="visually-hidden">Loading...</span>
+        </Button>
+        }
+      </Container>
+
+      </Form>
+
+    </Container>
     </div>
   )
 }

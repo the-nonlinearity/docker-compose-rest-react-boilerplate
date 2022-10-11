@@ -1,5 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
+import 'react-toastify/dist/ReactToastify.css'
 import { NavBar } from './components/NavBar'
 import { AuthProvider } from './context/AuthContext'
 import { RouteList } from './routes'
@@ -12,12 +14,15 @@ import { RouteList } from './routes'
 // import Spinner from 'react-bootstrap/Spinner';
 
 const App = () => (
+  <>
   <BrowserRouter>
     <AuthProvider>
       <NavBar />
       <RouteList />
     </AuthProvider>
   </BrowserRouter>
+  <ToastContainer/>
+  </>
 )
 
 export default App

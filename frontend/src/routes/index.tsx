@@ -7,6 +7,7 @@
  */
 import { Routes, Route } from 'react-router-dom'
 
+import { Account } from '../pages/Account'
 import { Home } from '../pages/Home'
 import { Login } from '../pages/Login'
 import { Metrics } from '../pages/Metrics'
@@ -60,6 +61,15 @@ export const RouteList = () => (
       element={
         <PrivateRoute permissions={['users.list', 'users.create']}>
           <Users />
+        </PrivateRoute>
+      }
+    />
+
+<Route
+      path="/account"
+      element={
+        <PrivateRoute redirectTo="/login">
+          <Account />
         </PrivateRoute>
       }
     />
